@@ -1,6 +1,6 @@
 import json
 
-from .main import Product, db
+from main import Product, db
 import pika
 
 params = pika.URLParameters('amqps://cgmvablb:dD6bpmk8AkEeox7FbwYCGqGp-9gaajL7@shark.rmq.cloudamqp.com/cgmvablb')
@@ -14,7 +14,7 @@ channel.queue_declare(queue='main')
 
 def main_callback(ch, method, properties, body):
     data = json.loads(body)
-    print('Received in mainddd... ', data, properties)
+    print('Received data: ', data, properties)
     if properties.content_type == 'create':
         product = Product(id=data['id'], title=data['title'], image=data['image'])
         db.session.add(product)
@@ -37,7 +37,7 @@ def main_callback(ch, method, properties, body):
 
 channel.basic_consume(queue='main', on_message_callback=main_callback, auto_ack=True)
 
-print('Started mnew ain app consuming....')
+print('Started main app consuming....')
 
 channel.start_consuming()
 
