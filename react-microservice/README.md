@@ -8,11 +8,11 @@ Youtube: https://www.youtube.com/watch?v=0iB5IPoTDts
 - `pip3 install djangorestframework`
 - Create new project: `django-admin startproject admin`
 - `cd admin`
-- `python3 manage.py runserver`
+- `python3 manage.py runserver` (is eventually moved to `docker-compose.yaml`)
 - Delete `dbsqlite`
 - Create `Dockerfile` and `docker-compose.yaml`
 - Create requirements.txt //to list all dependencies for the app
-- Run `docker-compose up`
+- Run `docker-compose up --build`
 - Get into docker container: `docker-compose exec backend sh`
 Inside container run: `python manage.py startapp products`. this creates a folder
 products alongside admin.
@@ -41,7 +41,7 @@ products alongside admin.
 # Flask app (directory `flask-app`)
 Catches the event from Django app thru RabbitMQ and creates the product in its own db.
 - Run `main.py` directly: `python main.py`. Available at `http://localhost:5000`
-- Run docker: `docker-compose up`. Available at `http://localhost:8001`
+- Run docker: `docker-compose up --build`. Available at `http://localhost:8001`
 - login to shell: `docker-compose exec backend sh`. Run the following commands in the container:
     - `python manager.py db --`
     - `python manager.py db init`
@@ -53,3 +53,5 @@ Catches the event from Django app thru RabbitMQ and creates the product in its o
 - Copy the AMQP url.
 - In `products` app, create `producer.py` and `consumer.py` (see details there). Add publish call in `create` view.
 - Start `admin` docker up and go into the container.
+- Run `python consumer.py`  (is eventually moved to `docker-compose.yaml`). Send a create request and see the data appear in consumer.
+- create consumer in flask app and start it. These steps do not need to be run manually as they are moved to `docker-compose.yaml`.
