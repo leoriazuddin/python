@@ -55,3 +55,13 @@ Catches the event from Django app thru RabbitMQ and creates the product in its o
 - Start `admin` docker up and go into the container.
 - Run `python consumer.py`  (is eventually moved to `docker-compose.yaml`). Send a create request and see the data appear in consumer.
 - create consumer in flask app and start it. These steps do not need to be run manually as they are moved to `docker-compose.yaml`.
+
+# React app setup
+- `brew install npm`
+- NPX: `npx create-react-app react-webapp --template typescript`
+- change to project, run `npm start`. Available at http://localhost:3000
+- Download `Dashboard` template source (only the code under `body`) from `www.getbootstrap.com` examples.
+    - copy `dashboard.css` into `App.css`.
+    - Get CSS HTML link from `bootstrapcdn.com` and add it to `public\index.html`
+    - `npm i react-router-dom @types/react-router-dom` and configure browser route for `Products` component in `App.tsx`
+    - Create react components `Nav`, `Menu`, `Product`, `Wrapper`, `Main` etc.
